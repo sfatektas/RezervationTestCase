@@ -10,7 +10,7 @@ namespace RezervationTestCase.Entities
     {
         public int Capacity { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal DailyPrice { get; set; }
 
         public bool IsActive { get; set; }
     }
