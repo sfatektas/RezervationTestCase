@@ -8,7 +8,7 @@ namespace RezervationTestCase.Entities
 {
     public class Booking : BaseEntity
     {
-        public Customer Customers { get; set; }
+        public Customer Customer { get; set; }
 
         public int CustomerId { get; set; }
 
@@ -20,11 +20,13 @@ namespace RezervationTestCase.Entities
 
         public DateTime ExitDate { get; set; }
 
-        public BookingStatus BookingStatuses { get; set; }
+        public BookingStatus BookingStatus { get; set; }
 
         public int BookingStatusId { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public DateTime BookingDate { get; set; }
     
         public decimal CalculateNetPrice(int numberOfCustomer, DateTime entryDate, DateTime exitDate, decimal dailyRoomPrice)
         {

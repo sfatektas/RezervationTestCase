@@ -17,6 +17,9 @@
 
   <ItemGroup>
     <Folder Include="Mapper\AutoMapper\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+    <Folder Include="Validator\FluentValidation\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RezervationTestCase.DataAccess.Configuration;
 using RezervationTestCase.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace RezervationTestCase.DataAccess.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new BookingConfiguration ());
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration ());
         }
     }
 }
