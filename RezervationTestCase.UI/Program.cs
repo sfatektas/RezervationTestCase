@@ -1,6 +1,22 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using RezervationTestCase.Bussines.DependencyResolvers;
+using RezervationTestCase.Bussines.DependencyResolvers.AutoFac;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.DependencyExtension(builder.Configuration.GetConnectionString("LocalDb"));
+
+            //Autofac
+
+    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacBussinesModule());
+    });
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

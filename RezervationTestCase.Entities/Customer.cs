@@ -8,10 +8,13 @@ namespace RezervationTestCase.Entities
 {
     public class Customer : BaseEntity
     {
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
-        public string? TelNo { get; set; }
+        public string TelNo { get; set; }
+        
+        public string Email { get; set; }
 
-        public string? Email { get; set; }
+        public List<Booking> Bookings { get; set; }
+
     }
 }

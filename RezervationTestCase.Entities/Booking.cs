@@ -8,19 +8,19 @@ namespace RezervationTestCase.Entities
 {
     public class Booking : BaseEntity
     {
-        public List<Customer> Customers { get; set; }
+        public Customer Customers { get; set; }
 
         public int CustomerId { get; set; }
 
-        public List<Booking> Bookings { get; set; }
+        public Room Room { get; set; }
 
-        public int BookingId { get; set; }
+        public int RoomId { get; set; }
 
         public DateTime EntiryDate { get; set; }
 
         public DateTime ExitDate { get; set; }
 
-        public List<BookingStatus> BookingStatuses { get; set; }
+        public BookingStatus BookingStatuses { get; set; }
 
         public int BookingStatusId { get; set; }
 

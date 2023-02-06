@@ -8,6 +8,9 @@ namespace RezervationTestCase.Entities
 {
     public class BookingStatus : BaseEntity
     {
-        public string? Defination { get; set; }
+        public string Defination { get; set; }
+
+        public List<Booking> Bookings { get; set; }
+
     }
 }

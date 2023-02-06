@@ -13,5 +13,7 @@ namespace RezervationTestCase.Entities
         public decimal DailyPrice { get; set; }
 
         public bool IsActive { get; set; }
+
+        public List<Booking> Bookings { get; set; }
     }
 }
