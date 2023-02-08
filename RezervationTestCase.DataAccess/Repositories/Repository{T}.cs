@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RezervationTestCase.Common.Enums;
 using RezervationTestCase.DataAccess.Context;
 using RezervationTestCase.DataAccess.Interfaces;
 using RezervationTestCase.Entities;
@@ -36,14 +37,31 @@ namespace RezervationTestCase.DataAccess.Repositories
             return await _context.Set<T>().Where(filter).ToListAsync();
         }
 
+        public async Task<List<T>> GetAllAsync<TKey>(Expression<Func<T, bool>> filter, Expression<Func<T, TKey>> keySelector, OrderByType OrderByType = OrderByType.DESC)
+        {
+            var list = (OrderByType == OrderByType.DESC) ? await _context.Set<T>().AsNoTracking().OrderByDescending(keySelector).Where(filter).ToListAsync() :
+                await _context.Set<T>().AsNoTracking().OrderBy(keySelector).Where(filter).ToListAsync();
+            return list;
+        }
+
         public async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<T> UpdateAsync(T entity) // unchanged kullanmak daha doğru !!!!
+        public T Update(T entity) // unchanged kullanmak daha doğru !!!!
         {
-            return await _context.Set
+            //return await _context.Set
+            _context.Update(entity);
+            return entity;
+        }
+        public async Task<List<T>> GetByFilterAsync(Expression<Func<T,bool>> filter)
+        {
+            return await _context.Set<T>().Where(filter).ToListAsync();
+        }
+        public IQueryable<T> GetQueryable()
+        {
+            return _context.Set<T>().AsQueryable();
         }
     }
 }

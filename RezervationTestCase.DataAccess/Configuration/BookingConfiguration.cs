@@ -17,7 +17,7 @@ namespace RezervationTestCase.DataAccess.Configuration
             builder.Property(x => x.TotalPrice).IsRequired();
             builder.Property(x => x.RoomId).IsRequired();
             builder.Property(x => x.BookingStatusId).IsRequired();
-            builder.Property(x => x.EntiryDate).IsRequired();
+            builder.Property(x => x.EntryDate).IsRequired();
             builder.Property(x => x.ExitDate).IsRequired();
             builder.Property(x => x.BookingDate).HasDefaultValueSql("getdate()");
         }

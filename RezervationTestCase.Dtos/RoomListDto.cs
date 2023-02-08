@@ -1,4 +1,5 @@
-﻿using RezervationTestCase.Dtos.Interfaces;
+﻿using RezervationTestCase.Dtos.BookingDtos;
+using RezervationTestCase.Dtos.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,12 @@ namespace RezervationTestCase.Dtos
     {
         public int Id { get; set; }
 
+        public int Capacity { get; set; }
 
+        public decimal DailyPrice { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public List<BookingListDto> Bookings { get; set; }
     }
 }

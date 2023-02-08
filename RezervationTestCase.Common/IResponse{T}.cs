@@ -15,6 +15,12 @@ namespace RezervationTestCase.Common
 
     public class ValidationError
     {
+        public ValidationError(string errorType, string errorMessage)
+        {
+            ErrorType = errorType;
+            ErrorMessage = errorMessage;
+        }
+
         public string ErrorType { get; set; }
 
         public string ErrorMessage { get; set; }

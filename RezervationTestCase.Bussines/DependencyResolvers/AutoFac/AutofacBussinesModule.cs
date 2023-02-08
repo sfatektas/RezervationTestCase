@@ -1,5 +1,9 @@
 ﻿
 using Autofac;
+using RezervationTestCase.Bussines.Interfaces;
+using RezervationTestCase.Bussines.Services;
+using RezervationTestCase.DataAccess.Interfaces;
+using RezervationTestCase.DataAccess.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +17,9 @@ namespace RezervationTestCase.Bussines.DependencyResolvers.AutoFac
     {
         protected override void Load(ContainerBuilder builder)
         {
-
+            builder.RegisterType<Uow>().As<IUow>();
+            builder.RegisterType<RoomService>().As<IRoomService>();
+            
         }
 
     }

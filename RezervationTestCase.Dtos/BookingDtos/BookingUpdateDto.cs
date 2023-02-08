@@ -1,18 +1,22 @@
-﻿using System;
+﻿using RezervationTestCase.Dtos.CustomerDtos;
+using RezervationTestCase.Dtos.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RezervationTestCase.Entities
+namespace RezervationTestCase.Dtos.BookingDtos
 {
-    public class Booking : BaseEntity
+    public class BookingUpdateDto : IUpdateDto
     {
-        public Customer Customer { get; set; }
+        public int Id { get; set; }
+
+        public CustomerListDto Customer { get; set; }
 
         public int CustomerId { get; set; }
 
-        public Room Room { get; set; }
+        public RoomListDto Room { get; set; }
 
         public int RoomId { get; set; }
 
@@ -22,14 +26,12 @@ namespace RezervationTestCase.Entities
 
         public int NumberOfVisitor { get; set; }
 
-        public BookingStatus BookingStatus { get; set; }
+        public BookingStatusListDto BookingStatus { get; set; }
 
         public int BookingStatusId { get; set; }
 
         public decimal TotalPrice { get; set; }
 
         public DateTime BookingDate { get; set; }
-
     }
-
 }

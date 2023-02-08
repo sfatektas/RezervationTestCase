@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RezervationTestCase.DataAccess.Context;
 
@@ -11,9 +12,11 @@ using RezervationTestCase.DataAccess.Context;
 namespace RezervationTestCase.DataAccess.Migrations
 {
     [DbContext(typeof(TestCaseDbContext))]
-    partial class TestCaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230208120307_numberofvisitorAdded")]
+    partial class numberofvisitorAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

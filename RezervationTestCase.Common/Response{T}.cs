@@ -12,7 +12,7 @@ namespace RezervationTestCase.Common
         public T Data { get; set; }
         public List<ValidationError> ValidationErrors { get; set; }
 
-        public Response(T data, ResponseType responseType) : base(responseType)
+        public Response(ResponseType responseType, T data) : base(responseType)
         {
             Data = data;
         }

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RezervationTestCase.Dtos.Interfaces
+namespace RezervationTestCase.Common.Enums
 {
-    public interface IUpdateDto : IDto
+    public enum OrderByType
     {
-        public int Id { get; set; }
+        DESC = 1 ,
+        ASC = 2 ,   
     }
 }

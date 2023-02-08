@@ -16,8 +16,12 @@ namespace RezervationTestCase.DataAccess.Interfaces
 
         public Task<List<T>> GetAllAsync(Expression<Func<T,bool>> filter);
 
-        public Task<T> CreateAsync (T entity); 
+        Task<List<T>> GetByFilterAsync(Expression<Func<T, bool>> filter);
 
-        public Task<T> UpdateAsync (T entity);
+        IQueryable<T> GetQueryable();
+
+        public Task<T> CreateAsync (T entity);
+
+        public T Update(T entity);
     }
 }

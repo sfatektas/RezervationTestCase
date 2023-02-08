@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RezervationTestCase.Common\RezervationTestCase.Common.csproj" />
     <ProjectReference Include="..\RezervationTestCase.Entities\RezervationTestCase.Entities.csproj" />
   </ItemGroup>
 
