@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RezervationTestCase.Bussines.Interfaces
 {
-    public interface IBookingService : IService<BookingCreateDto,BookingListDto,BookingUpdateDto ,Booking>
+    public interface IBookingService : IService<BookingCreateDto,BookingListDto,BookingUpdateDto ,Booking> , IQueryable<BookingListDto,Booking>
     {
 
     }

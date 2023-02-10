@@ -1,5 +1,4 @@
-﻿using RezervationTestCase.Dtos.CustomerDtos;
-using RezervationTestCase.Dtos.Interfaces;
+﻿using RezervationTestCase.Dtos.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +11,7 @@ namespace RezervationTestCase.Dtos.BookingDtos
     {
         public int Id { get; set; }
 
-        public CustomerListDto Customer { get; set; }
-
-        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
 
         public RoomListDto Room { get; set; }
 
@@ -23,6 +20,8 @@ namespace RezervationTestCase.Dtos.BookingDtos
         public DateTime EntryDate { get; set; }
 
         public DateTime ExitDate { get; set; }
+        
+        public int NumberOfVisitor { get; set; }
 
         public BookingStatusListDto BookingStatus { get; set; }
 

@@ -19,14 +19,11 @@ namespace RezervationTestCase.DataAccess.Context
 
         public DbSet<Room> Rooms { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
-
         public DbSet<BookingStatus> BookingStatuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new BookingConfiguration ());
-            modelBuilder.ApplyConfiguration(new CustomerConfiguration ());
         }
     }
 }

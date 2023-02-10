@@ -6,4 +6,8 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RezervationTestCase.Common\RezervationTestCase.Common.csproj" />
+  </ItemGroup>
+
 </Project>

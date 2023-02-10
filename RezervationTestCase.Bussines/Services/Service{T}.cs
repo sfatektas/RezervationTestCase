@@ -23,12 +23,6 @@ namespace RezervationTestCase.Bussines.Services
         where UpdateDto : class, IUpdateDto
         where T : BaseEntity
     {
-
-        public Service(IValidator<CreateDto> createValidator)
-        {
-            _createValidator = createValidator;
-        }
-
         readonly IUow _uow;
         readonly IMapper _mapper;
         readonly IValidator<CreateDto> _createValidator;
@@ -56,7 +50,8 @@ namespace RezervationTestCase.Bussines.Services
             var result = await _createValidator.ValidateAsync(dto);
             if (result.IsValid)
             {
-                await _uow.GetRepository<T>().CreateAsync(_mapper.Map<T>(dto));
+                var mappedData = _mapper.Map<T>(dto);
+                await _uow.GetRepository<T>().CreateAsync(mappedData);
                 await _uow.SaveChangesAsync();
                 return new Response<CreateDto>(ResponseType.Success, dto);
             }
@@ -72,7 +67,7 @@ namespace RezervationTestCase.Bussines.Services
 
         public async Task<IResponse<ListDto>> GetByIdAsync(int id)
         {
-            var data = await _uow.GetRepository<T>().GetByFilterAsync(x => x.Id == id);
+            var data = await _uow.GetRepository<T>().GetByIdAsync(id);
             if (data != null)
             {
                 return new Response<ListDto>(ResponseType.Success, _mapper.Map<ListDto>(data));

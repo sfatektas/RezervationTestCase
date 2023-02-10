@@ -1,5 +1,4 @@
-﻿using RezervationTestCase.Dtos.CustomerDtos;
-using RezervationTestCase.Dtos.Interfaces;
+﻿using RezervationTestCase.Dtos.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +9,20 @@ namespace RezervationTestCase.Dtos.BookingDtos
 {
     public class BookingCreateDto : ICreateDto
     {
-        public BookingCreateDto(int numberOfCustomer , DateTime entryDate , DateTime exitDate , decimal dailyRoomPrice)
+        public BookingCreateDto()
+        {
+
+        }
+        public BookingCreateDto(int numberOfCustomer , DateTime entryDate , DateTime exitDate , decimal dailyRoomPrice , int roomId )
         {
             TotalPrice =  this.CalculateNetPrice(numberOfCustomer, entryDate, exitDate , dailyRoomPrice);
             EntryDate = entryDate;
             ExitDate = exitDate;
             NumberOfVisitor = numberOfCustomer;
+            RoomId = roomId;
         }
 
-        public CustomerListDto Customer { get; set; }
-
-        public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
 
         public RoomListDto Room { get; set; }
 
@@ -61,7 +63,7 @@ namespace RezervationTestCase.Dtos.BookingDtos
 
             for (int i = 1; i < range.Days; i++) // defaul olarak yukarıda ilk günü alıyoruz o yüzden 1 gün eksik hesap yapmalıyız.
             {
-                if (entryDate.AddDays(i).DayOfWeek == DayOfWeek.Saturday || entryDate.AddDays(i).DayOfWeek == DayOfWeek.Sunday)
+                if (entryDate.AddDays(i).DayOfWeek == DayOfWeek.Saturday || entryDate.AddDays(i).DayOfWeek == DayOfWeek.Sunday) 
                     TotalPrice += dailyRoomPrice * 13 / 10; // eğer hafta sonu ise %30 zamlı olarak günlük fiyatı hesaplarız.
                 else
                     TotalPrice += dailyRoomPrice;

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_Layout";
+    var model = Model;
+}
+@model BookingCreateDto
+
+<form asp-action="Create" asp-controller="Booking" method="post">
+
+<div class="form-group">
+    <div class="row justify-content-center">
+        <div class="col-6 justify-content-center">
+            <div class="row">
+                <div class="form-group col-4">
+                    <label for="entryDate">Customer Name:</label>
+                    <input asp-for="@Model.CustomerName" type="text" class="form-control" id="CustomerName" required placeholder="type name..">
+                </div>                
+@*                <div class="form-group col-4">
+                    <label for="Telno">TelNo:</label>
+                    <input name="entryDate" type="tel" class="form-control" id="TelNo" required placeholder="type telno...">
+                </div>
+                <div class="form-group col-4">
+                    <label for="Email">Email:</label>
+                    <input name="Email" type="email" class="form-control" id="Email" required placeholder="type email...">
+                </div>*@
+                <input type="hidden" asp-for="@Model.RoomId"/>
+                <div class="form-group col-4">
+                    <label for="entryDate">Entry Date:</label>
+                    <input readonly asp-for="@Model.EntryDate" type="date" class="form-control" id="entryDate" required placeholder="Choose entry date">
+                </div>
+                <div class="form-group col-6">
+                    <label for="exitDate">Exit Date:</label>
+                    <input asp-for="@Model.ExitDate" readonly type="date" class="form-control" id="exitDate" placeholder="Choose exit date">
+                </div>
+                <div class="form-group col-8">
+                    <label for="countOfVisitor">Konaklayacak kişi sayısı:</label>
+                    <input asp-for="@Model.NumberOfVisitor" readonly  type="number" class="form-control" id="visitor" min="1" max="3">
+                </div>
+                <div class="form-group col-8">
+                    <label for="totalprice">Toplam Tutar:</label>
+                    <input asp-for="@Model.TotalPrice TL" readonly class="form-control" id="TotalPrice">
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary my-2">Rezervasyonu Tamamla</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+</form>

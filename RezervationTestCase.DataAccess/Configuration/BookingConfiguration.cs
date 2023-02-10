@@ -13,7 +13,6 @@ namespace RezervationTestCase.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
-            builder.Property(x => x.CustomerId).IsRequired();
             builder.Property(x => x.TotalPrice).IsRequired();
             builder.Property(x => x.RoomId).IsRequired();
             builder.Property(x => x.BookingStatusId).IsRequired();

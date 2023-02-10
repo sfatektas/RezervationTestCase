@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RezervationTestCase.Bussines.Extnesions;
 using RezervationTestCase.Bussines.Interfaces;
 using RezervationTestCase.Common.Enums;
 using RezervationTestCase.Dtos.BookingDtos;
@@ -9,39 +13,99 @@ namespace RezervationTestCase.UI.Controllers
     public class BookingController : Controller
     {
         readonly IRoomService _roomService;
-        
+        readonly IBookingService _bookingService;
+        readonly IValidator<BookingSearchModel> _validator;
+        readonly IMapper _mapper;
 
-        public BookingController(IRoomService roomService)
+        public static List<BookingCreateDto> bookingList = new();
+
+
+        public BookingController(IRoomService roomService, IBookingService bookingService, IValidator<BookingSearchModel> validator, IMapper mapper)
         {
             _roomService = roomService;
+            _bookingService = bookingService;
+            _validator = validator;
+            _mapper = mapper;
         }
-
         [HttpGet("/[controller]/search")]
-        public async Task<IActionResult> Search([FromQuery] int visitor, DateTime entryDate, DateTime exitDate )
+        public async Task<IActionResult> Search(BookingSearchModel model)
         {
-            
-            
-            if(visitor == 0)
-                return View();
-            var response = await _roomService.GetAllAsync(x=>x.IsActive == true);
-            if(response.ResponseType==ResponseType.NotFound)
+            var result = _validator.Validate(model);
+            if (result.IsValid)
             {
-                ViewBag.Message = response.Message;
-                return View();
+                if (model.NumberOfVisitor == 0)
+                    return View();
+                bookingList.Clear();//yeni arama yapılmadan önce boşaltılsın.
+
+                var response = _roomService.GetQueryable();
+                response.Data.Include(x => x.Bookings).ToList();
+
+                if (response.ResponseType == ResponseType.NotFound)
+                {
+                    ViewBag.Message = response.Message;
+                    return View();
+                }
+
+                foreach (var room in response.Data) // Odanın rezervasyona uygun olup olmadığı sorgulanıyor.
+                {
+                    bool isOk = true;
+                    if (room.Bookings!=null)
+                        foreach (var booking in room.Bookings)
+                        {
+                            if (!room.CheckAvaiable(model.EntryDate, model.ExitDate, booking.EntryDate, booking.ExitDate , booking.BookingStatusId))
+                                isOk = false;
+                        }
+                    if (isOk)
+                        bookingList.Add(
+                        new BookingCreateDto(model.NumberOfVisitor, model.EntryDate, model.ExitDate, room.DailyPrice, room.Id));
+                }
+
+                return View(bookingList.OrderBy(x => x.TotalPrice).ToList());
             }
-            List<BookingCreateDto> bookingList = new();
-            foreach (var item in response.Data)
+            foreach (var error in result.GetValidationErrors())
             {
-                bookingList.Add(
-                    new BookingCreateDto( visitor ,entryDate ,exitDate , item.DailyPrice));
+                ModelState.AddModelError(error.ErrorType, error.ErrorMessage);
             }
-            ViewBag.Model = new BookingSearchModel
+            return View();
+
+        }
+        [HttpGet("[controller]/[action]/{id}")]
+        public async Task<IActionResult> Create(int id)
+        {
+            var model = bookingList.Where(x => x.RoomId == id).FirstOrDefault();
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(BookingCreateDto model)
+        {
+            model.BookingDate = DateTime.Now;
+            model.BookingStatusId = (int)BookingStatusType.Waiting; // Rezervasyonu Drekt bekliyor olarak atama yapıyoruz
+            var response = await _bookingService.CreateAsync(model);
+            if (response.ResponseType == ResponseType.Error)
+                ViewBag.Message = "Bir Problem Oluştu.";
+            ViewBag.Message = "Rezervasyon oluşturuldu.";
+            return RedirectToAction("Search");
+        }
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            var data = _bookingService.GetQueryable(id);
+            if (data != null)
+                return View(data);
+            return NotFound();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> Cancel(BookingListDto dto)
+        {
+            dto.BookingStatusId = (int)BookingStatusType.Cancelled; // iptal işlemi yapılıyor.
+            var mappedData = _mapper.Map<BookingUpdateDto>(dto);
+            var response = await _bookingService.UpdateAsync(mappedData);
+            if (response.ResponseType == ResponseType.Success)
             {
-                EntryDate = entryDate,
-                ExitDate = exitDate,
-                NumberOfVisitor = visitor
-            };
-            return View(bookingList.OrderBy(x=>x.TotalPrice).ToList());
+                return Redirect($"/Booking/Detail/{dto.Id}");
+            }
+            return RedirectToAction("Search");
         }
     }
 }

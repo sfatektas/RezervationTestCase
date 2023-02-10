@@ -8,9 +8,10 @@ namespace RezervationTestCase.Entities
 {
     public class Booking : BaseEntity
     {
-        public Customer Customer { get; set; }
+        //public Customer Customer { get; set; } customer tablosu silindi sadece kullanıcının adını tutacağım
 
-        public int CustomerId { get; set; }
+        //public int CustomerId { get; set; }
+        public string CustomerName { get; set; }    
 
         public Room Room { get; set; }
 
@@ -29,6 +30,8 @@ namespace RezervationTestCase.Entities
         public decimal TotalPrice { get; set; }
 
         public DateTime BookingDate { get; set; }
+
+
 
     }
 

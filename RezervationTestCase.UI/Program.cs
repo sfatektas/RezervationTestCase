@@ -1,7 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using FluentValidation;
 using RezervationTestCase.Bussines.DependencyResolvers;
 using RezervationTestCase.Bussines.DependencyResolvers.AutoFac;
+using RezervationTestCase.UI.Models;
+using RezervationTestCase.UI.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,7 @@ builder.Services.DependencyExtension(builder.Configuration.GetConnectionString("
     .ConfigureContainer<ContainerBuilder>(builder =>
     {
         builder.RegisterModule(new AutofacBussinesModule());
+        builder.RegisterType<BookingSearchModelValidator>().As<IValidator<BookingSearchModel>>();
     });
 
 
@@ -31,6 +35,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

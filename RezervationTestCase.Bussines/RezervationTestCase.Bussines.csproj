@@ -21,9 +21,4 @@
     <ProjectReference Include="..\RezervationTestCase.Dtos\RezervationTestCase.Dtos.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mapper\AutoMapper\" />
-    <Folder Include="Validator\FluentValidation\" />
-  </ItemGroup>
-
 </Project>

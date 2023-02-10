@@ -24,6 +24,7 @@ namespace RezervationTestCase.Bussines.DependencyResolvers
             var profiles = new List<Profile>()
             {
                 new RoomProfile(),
+                new BookingProfile()
             };
 
             service.AddAutoMapper(configuration => configuration.AddProfiles(profiles));

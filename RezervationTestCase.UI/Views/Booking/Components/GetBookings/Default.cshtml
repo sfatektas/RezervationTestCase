@@ -1,0 +1,39 @@
+﻿@using RezervationTestCase.Common.Enums
+@{
+
+}
+@model List<BookingListDto>
+
+@if (Model != null)
+{
+    <h2 class="text-center">Bookings</h2>
+    @foreach (var item in Model)
+    {
+        <ol class="list-group list-group-numbered">
+            <a href="/Booking/Detail/@item.Id">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">@item.CustomerName</div>
+                </div>
+                    @{
+                        if (item.BookingStatusId == (int)BookingStatusType.Waiting)
+                        {
+                        <span class="badge bg-info rounded-pill">@item.BookingStatus.Defination</span>
+
+                        }
+                        else if (item.BookingStatusId == (int)BookingStatusType.Cancelled)
+                        {
+                        <span class="badge bg-danger rounded-pill">@item.BookingStatus.Defination</span>
+
+                        }
+                        else if (item.BookingStatusId == (int)BookingStatusType.Okey)
+                        {
+                        <span class="badge bg-success rounded-pill">@item.BookingStatus.Defination</span>
+
+                        }
+                    }
+            </li>
+            </a>
+        </ol>
+    }
+}

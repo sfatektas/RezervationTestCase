@@ -16,7 +16,7 @@ namespace RezervationTestCase.UI.Controllers
         public IActionResult Index()
         {
 
-            return View();
+            return RedirectToAction("Search","Booking");
         }
         
         public IActionResult Privacy()

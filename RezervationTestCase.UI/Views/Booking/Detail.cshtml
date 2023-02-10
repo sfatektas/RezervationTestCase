@@ -1,0 +1,39 @@
+﻿@using RezervationTestCase.Common.Enums
+@{
+    Layout = "_Layout";
+}
+
+@model BookingListDto
+
+<h3 class="text-center">Booking Detail</h3>
+<form asp-action="Cancel" asp-controller="Booking">
+    <div class="row w-75">
+        <div class="col-12"><span class="text-bold">Müşteri Adı</span> @Model.CustomerName</div>
+        <input type="hidden" asp-for="@Model.CustomerName" />
+    </div>
+    <div class="row w-75">
+        <div class="col-6"><span class="text-bold">Giriş Tarihi :</span>@Model.EntryDate</div>
+        <input type="hidden" asp-for="@Model.EntryDate" />
+        <div class="col-6"><span class="text-bold">Çıkış Tarihi :</span>@Model.ExitDate</div>
+        <div class="col-6"><span class="text-bold">Toplam Tutar :</span>@Model.TotalPrice</div>
+
+        <input type="hidden" asp-for="@Model.ExitDate" />
+        <input type="hidden" asp-for="@Model.Id" />
+        <input type="hidden" asp-for="@Model.BookingDate" />
+        <input type="hidden" asp-for="@Model.TotalPrice" />
+        <input type="hidden" asp-for="@Model.BookingStatusId" />
+        <input type="hidden" asp-for="@Model.RoomId" />
+        <input type="hidden" asp-for="@Model.NumberOfVisitor" />
+
+    </div>
+    <div class="row w-75 d-flex justify-content-center">
+        <div class="col-12">Kişi Sayısı :@Model.NumberOfVisitor</div>
+        <div> <span class="text-black-50">Rezervasyon Durumu : </span>@Model.BookingStatus.Defination</div>
+        @{
+            if(Model.BookingStatusId==(int)BookingStatusType.Waiting)
+            {
+                <button class="btn btn-danger" type="submit">İptal Et</button>
+            }
+        }
+    </div>
+</form>
